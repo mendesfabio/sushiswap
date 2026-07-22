@@ -48,6 +48,11 @@ export const EXPLORE_NAVIGATION_LINKS = (
       description: 'Trade perpetual contracts.',
     },
     {
+      title: 'Launch',
+      href: `/${getChainById(chainId ?? ChainId.ETHEREUM).key}/launch`,
+      description: 'Launch a token or join a live sale.',
+    },
+    {
       title: 'Pool',
       href: `/${getChainById(isPoolChainId ? chainId : ChainId.ETHEREUM).key}/pool`,
       description: 'Earn fees by providing liquidity.',
@@ -233,6 +238,12 @@ export const headerElements = ({
     {
       title: 'Perps',
       href: `/perps`,
+      show: 'desktop',
+      type: NavigationElementType.Single,
+    },
+    {
+      title: 'Launch',
+      href: `/${getChainById(chainId ?? ChainId.ETHEREUM).key}/launch`,
       show: 'desktop',
       type: NavigationElementType.Single,
     },

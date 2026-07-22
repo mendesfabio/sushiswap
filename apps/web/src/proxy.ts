@@ -1,7 +1,7 @@
 import { trace } from '@opentelemetry/api'
 import { type NextRequest, NextResponse } from 'next/server'
 import { getChainById, getChainByKey, isChainId, isChainKey } from 'sushi'
-import { getEvmChainById, isBladeChainId, isSushiSwapChainId } from 'sushi/evm'
+import { isBladeChainId, isSushiSwapChainId } from 'sushi/evm'
 import { SUPPORTED_NETWORKS } from './config'
 
 export const config = {
@@ -10,6 +10,7 @@ export const config = {
     '/limit/:path*',
     '/dca/:path*',
     '/cross-chain-swap/:path*',
+    '/launch/:path*',
     '/pool',
     '/pools',
     '/explore',
@@ -17,6 +18,7 @@ export const config = {
     '/:chainId/limit/:path*',
     '/:chainId/dca/:path*',
     '/:chainId/cross-chain-swap/:path*',
+    '/:chainId/launch/:path*',
     '/:chainId/stop-loss/:path*',
     '/:chainId/take-profit/:path*',
     '/:chainId/explore/:path*',
@@ -58,7 +60,8 @@ async function _proxy(req: NextRequest) {
     pathname === '/take-profit' ||
     pathname === '/limit' ||
     pathname === '/dca' ||
-    pathname === '/cross-chain-swap'
+    pathname === '/cross-chain-swap' ||
+    pathname === '/launch'
   ) {
     const path = ['/explore', '/pools'].includes(pathname)
       ? 'explore/pools'
@@ -70,7 +73,7 @@ async function _proxy(req: NextRequest) {
       const chainId = wagmiState?.state?.chainId
       if (SUPPORTED_NETWORKS.includes(chainId)) {
         return NextResponse.redirect(
-          new URL(`/${getEvmChainById(chainId).key}/${path}`, req.url),
+          new URL(`/${getChainById(chainId).key}/${path}`, req.url),
         )
       }
     }
@@ -78,7 +81,7 @@ async function _proxy(req: NextRequest) {
   }
 
   const networkNameMatch = pathname.match(
-    /([\w-]+)(?=\/swap|\/limit|\/dca|\/stop-loss|\/take-profit|\/cross-chain-swap|\/explore|\/pool|\/token|\/positions|\/rewards|\/migrate)/,
+    /([\w-]+)(?=\/swap|\/limit|\/dca|\/stop-loss|\/take-profit|\/cross-chain-swap|\/launch|\/explore|\/pool|\/token|\/positions|\/rewards|\/migrate)/,
   )
   if (networkNameMatch?.length) {
     let chain
@@ -151,7 +154,7 @@ async function _proxy(req: NextRequest) {
     // Stellar only piggybacks on the EVM trade layout for cross-chain-swap.
     if (
       chain.type === 'evm' ||
-      chain.type === 'svm' ||
+      (chain.type === 'svm' && page !== 'launch') ||
       (chain.type === 'stellar' && page === 'cross-chain-swap')
     ) {
       url.pathname = pathname.replace(chain.key, chain.chainId.toString())

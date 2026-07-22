@@ -214,6 +214,9 @@ importers:
       '@aptos-labs/wallet-adapter-react':
         specifier: 2.3.1
         version: 2.3.1(@aptos-labs/ts-sdk@1.27.0)(aptos@1.21.0)(react@19.2.7)
+      '@balancer/sdk':
+        specifier: 6.1.1
+        version: 6.1.1(bufferutil@4.0.8)(typescript@5.9.3)(utf-8-validate@6.0.3)(zod@4.1.11)
       '@base-org/account':
         specifier: 2.4.2
         version: 2.4.2(@types/react@19.2.17)(bufferutil@4.0.8)(encoding@0.1.13)(fastestsmallesttextencoderdecoder@1.0.22)(immer@9.0.21)(react@19.2.7)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.2.7))(utf-8-validate@6.0.3)(zod@4.1.11)
@@ -2195,6 +2198,14 @@ packages:
   '@babel/types@7.26.5':
     resolution: {integrity: sha512-L6mZmwFDK6Cjh1nRCLXpa6no13ZIioJDz7mdkzHv399pThrTa/k0nUlNaenOeh2kWu/iaOQYElEpKPUswUa9Vg==}
     engines: {node: '>=6.9.0'}
+
+  '@balancer-labs/balancer-maths@0.0.40':
+    resolution: {integrity: sha512-oSd9ozJctBv6D/CjPZwCsGRerOHwIRjOciOnwxxNQUaSeFlbm8YSEAdDtQ8eggTmJ75pxEBHrl+rC4IpbgAWBg==}
+    engines: {node: '>=18.x'}
+
+  '@balancer/sdk@6.1.1':
+    resolution: {integrity: sha512-SnEK+NypOx+RJnjJOqZHF7URyrqFKzwfR9md8iKaOhZNz+1l+B7dH74D3apcQGzBp4NdkyJHno4lTss/DFjmzg==}
+    engines: {node: '>=20.x'}
 
   '@base-org/account@1.1.1':
     resolution: {integrity: sha512-IfVJPrDPhHfqXRDb89472hXkpvJuQQR7FDI9isLPHEqSYt/45whIoBxSPgZ0ssTt379VhQo4+87PWI1DoLSfAQ==}
@@ -17833,6 +17844,18 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  '@balancer-labs/balancer-maths@0.0.40': {}
+
+  '@balancer/sdk@6.1.1(bufferutil@4.0.8)(typescript@5.9.3)(utf-8-validate@6.0.3)(zod@4.1.11)':
+    dependencies:
+      '@balancer-labs/balancer-maths': 0.0.40
+      viem: 2.55.0(bufferutil@4.0.8)(typescript@5.9.3)(utf-8-validate@6.0.3)(zod@4.1.11)
+    transitivePeerDependencies:
+      - bufferutil
+      - typescript
+      - utf-8-validate
+      - zod
 
   '@base-org/account@1.1.1(@types/react@19.2.17)(bufferutil@4.0.8)(immer@9.0.21)(react@19.2.7)(typescript@5.9.3)(use-sync-external-store@1.4.0(react@19.2.7))(utf-8-validate@6.0.3)(zod@4.1.11)':
     dependencies:
