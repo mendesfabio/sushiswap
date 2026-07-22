@@ -16,7 +16,7 @@ import {
 {
   const state = {
     chains: new Map<PriceWorkerChainId, WorkerChainState<PriceWorkerChainId>>(),
-    intervals: new Map<PriceWorkerChainId, NodeJS.Timeout>(),
+    intervals: new Map<PriceWorkerChainId, ReturnType<typeof setInterval>>(),
     enabled: true,
     canUseSharedArrayBuffer: false,
   }

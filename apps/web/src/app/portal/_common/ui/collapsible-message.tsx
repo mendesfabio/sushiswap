@@ -19,7 +19,7 @@ export function useCollapsibleMessage({
   const [message, setMessage] = useState<Message | null>(null)
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout
+    let timeout: ReturnType<typeof setTimeout>
 
     if (successTimeout && message?.type === 'success') {
       timeout = setTimeout(() => setMessage(null), successTimeout || 2000)

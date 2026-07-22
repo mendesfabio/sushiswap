@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -eu
 
+if [ "${NEXT_PUBLIC_DISABLE_PERPS:-}" = "true" ]; then
+  echo "Skipping TradingView Charting Library because Perps is disabled."
+  exit 0
+fi
+
 # CONFIG
 REPO_SLUG="tradingview/charting_library"
 COMMIT="bff3af11c0fd6eabae559fc1482a3c85e2ef06f0"

@@ -21,6 +21,8 @@ import {
   svmAddress,
 } from 'sushi/svm'
 
+export const PERPS_ENABLED = process.env.NEXT_PUBLIC_DISABLE_PERPS !== 'true'
+
 export const ULTRA_ADVANCED_FEE_RECEIVER =
   'FR7r4C5prSywpsTkd1jutJ6nxDyo25hgAkwHR6HKnNjU'
 export const ULTRA_ADVANCED_FEE_INTEGRATOR_ID = 'tyler@sushi.com'

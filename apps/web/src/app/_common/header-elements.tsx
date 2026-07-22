@@ -21,7 +21,7 @@ import { DiscordIcon } from '@sushiswap/ui/icons/DiscordIcon'
 import { GithubIcon } from '@sushiswap/ui/icons/GithubIcon'
 import { XIcon } from '@sushiswap/ui/icons/XIcon'
 import Link from 'next/link'
-import { POOL_SUPPORTED_NETWORKS } from 'src/config'
+import { PERPS_ENABLED, POOL_SUPPORTED_NETWORKS } from 'src/config'
 import { ChainId, getChainById } from 'sushi'
 import { CookieDialog } from './cookies/cookie-dialog'
 
@@ -30,6 +30,16 @@ export const EXPLORE_NAVIGATION_LINKS = (
 ): NavigationElementDropdown['items'] => {
   const isPoolChainId =
     chainId && POOL_SUPPORTED_NETWORKS.some((_chainId) => _chainId === chainId)
+
+  const perpsNavigationLinks: NavigationElementDropdown['items'] = PERPS_ENABLED
+    ? [
+        {
+          title: 'Perps',
+          href: `/perps`,
+          description: 'Trade perpetual contracts.',
+        },
+      ]
+    : []
 
   return [
     {
@@ -42,11 +52,7 @@ export const EXPLORE_NAVIGATION_LINKS = (
       href: `/${getChainById(isPoolChainId ? chainId : ChainId.ETHEREUM).key}/explore/pools`,
       description: 'Explore top pools.',
     },
-    {
-      title: 'Perps',
-      href: `/perps`,
-      description: 'Trade perpetual contracts.',
-    },
+    ...perpsNavigationLinks,
     {
       title: 'Launch',
       href: `/${getChainById(chainId ?? ChainId.ETHEREUM).key}/launch`,
@@ -120,6 +126,17 @@ export const headerElements = ({
 }: HeaderElements = {}): NavigationElement[] => {
   const isPoolChainId =
     chainId && POOL_SUPPORTED_NETWORKS.some((_chainId) => _chainId === chainId)
+
+  const perpsNavigationElements: NavigationElement[] = PERPS_ENABLED
+    ? [
+        {
+          title: 'Perps',
+          href: `/perps`,
+          show: 'desktop',
+          type: NavigationElementType.Single,
+        },
+      ]
+    : []
 
   return [
     {
@@ -235,12 +252,7 @@ export const headerElements = ({
         </NavigationMenuItem>
       ),
     },
-    {
-      title: 'Perps',
-      href: `/perps`,
-      show: 'desktop',
-      type: NavigationElementType.Single,
-    },
+    ...perpsNavigationElements,
     {
       title: 'Launch',
       href: `/${getChainById(chainId ?? ChainId.ETHEREUM).key}/launch`,

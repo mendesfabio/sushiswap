@@ -2,7 +2,7 @@ import { trace } from '@opentelemetry/api'
 import { type NextRequest, NextResponse } from 'next/server'
 import { getChainById, getChainByKey, isChainId, isChainKey } from 'sushi'
 import { isBladeChainId, isSushiSwapChainId } from 'sushi/evm'
-import { SUPPORTED_NETWORKS } from './config'
+import { PERPS_ENABLED, SUPPORTED_NETWORKS } from './config'
 
 export const config = {
   matcher: [
@@ -37,6 +37,10 @@ export const config = {
 
 async function _proxy(req: NextRequest) {
   const { pathname, searchParams, search } = req.nextUrl
+
+  if (!PERPS_ENABLED && /^\/(?:[^/]+\/)?perps(?:\/|$)/.test(pathname)) {
+    return NextResponse.redirect(new URL('/ethereum/launch', req.url))
+  }
 
   if (pathname.includes('/portal') || pathname.startsWith('/portal/')) {
     if (process.env.VERCEL_ENV === 'production') {

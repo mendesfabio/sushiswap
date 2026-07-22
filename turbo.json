@@ -24,7 +24,7 @@
         ".vercel/**/*",
         "dist/**/*"
       ],
-      "env": ["EDGE_CONFIG"]
+      "env": ["EDGE_CONFIG", "NEXT_PUBLIC_DISABLE_PERPS"]
     },
     "clean": {
       "cache": false
