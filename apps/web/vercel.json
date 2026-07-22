@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/token-list",
-      "schedule": "*/15 * * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 }
